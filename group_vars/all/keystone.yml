@@ -1,0 +1,21 @@
+---
+
+keystone_db_name: keystone
+keystone_db_user: keystone
+keystone_db_password: very_serious_password
+keystone_db_host: "{{ groups['keystone-db'][0] }}"
+
+keystone_configuration:
+  - section: database
+    option: connection
+    value: "mysql+pymysql://{{ keystone_db_user }}:{{ keystone_db_password }}@{{ keystone_db_host }}/{{ keystone_db_name }}"
+  - section: token
+    option: provider
+    value: uuid
+  - section: token
+    option: expiration
+    value: 3600
+
+keystone_url: "http://keystone.{{ environment_name }}.{{ environment_domain }}.cloud.tux.kz"
+keystone_bootstrap_password: 1q2w3e4r
+keystone_bootstrap_region: de-north-1

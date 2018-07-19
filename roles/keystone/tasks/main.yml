@@ -1,0 +1,31 @@
+---
+
+- name: Install keystone packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: True
+  with_items:
+    - keystone
+    - apache2
+    - libapache2-mod-wsgi
+
+- name: Configure keystone
+  ini_file:
+    path: /etc/keystone/keystone.conf
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  with_items: "{{ keystone_configuration }}"
+
+- name: Disable default apache2 site
+  file:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  notify: restart apache2
+
+- name: Reconfigure default keystone site
+  template:
+    src: keystone.conf.j2
+    dest: /etc/apache2/sites-available/keystone.conf
+  notify: restart apache2

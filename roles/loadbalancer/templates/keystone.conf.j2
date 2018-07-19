@@ -1,0 +1,27 @@
+upstream keystone_public {
+{% for upstream in groups['keystone'] %}
+    server {{ upstream }}:5000;
+{% endfor %}
+}
+
+upstream keystone_admin {
+{% for upstream in groups['keystone'] %}
+    server {{ upstream }}:35357;
+{% endfor %}
+}
+
+server {
+    listen 0.0.0.0:5000 default_server;
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_pass http://keystone_public;
+    }
+}
+
+server {
+    listen 0.0.0.0:35357 default_server;
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_pass http://keystone_admin;
+    }
+}

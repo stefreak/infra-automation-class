@@ -1,0 +1,24 @@
+---
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Disable default nginx site
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Template keystone reverse proxy configuration
+  template:
+    src: keystone.conf.j2
+    dest: /etc/nginx/sites-available/keystone.conf
+  notify: restart nginx
+
+- name: Enable keystone reverse proxy
+  file:
+    src: /etc/nginx/sites-available/keystone.conf
+    dest: /etc/nginx/sites-enabled/keystone.conf
+    state: link
+  notify: restart nginx
