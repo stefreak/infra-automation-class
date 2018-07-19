@@ -2,7 +2,7 @@
 
 set -e
 
-exec `dirname $0`/global.sh
+source `dirname $0`/global.sh
 
 cd master/tests/loadbalancer
 
