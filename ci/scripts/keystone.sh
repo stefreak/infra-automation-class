@@ -1,3 +1,5 @@
 #!/bin/sh
 
-source `dirname $0`/global.sh
+set -e
+
+exec `dirname $0`/global.sh
