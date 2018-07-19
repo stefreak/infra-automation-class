@@ -1,0 +1,93 @@
+---
+
+resources:
+  - name: master
+    type: git
+    source:
+      uri: https://github.com/rnurgaliyev/infra-automation-class.git
+      branch: master
+
+jobs:
+  - name: keystone
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: alpine
+        inputs:
+          - name: master
+        run:
+          path: master/ci/scripts/keystone.sh
+        params:
+          SSH_KEY: ((SSH_KEY))
+          OS_AUTH_URL: ((OS_AUTH_URL))
+          OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+          OS_PROJECT_ID: ((OS_PROJECT_ID))
+          OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+          OS_INTERFACE: ((OS_INTERFACE))
+          OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+          OS_USERNAME: ((OS_USERNAME))
+          OS_PASSWORD: ((OS_PASSWORD))
+          OS_REGION_NAME: ((OS_REGION_NAME))
+          OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+
+  - name: keystone-db
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: alpine
+        inputs:
+          - name: master
+        run:
+          path: master/ci/scripts/keystone-db.sh
+        params:
+          SSH_KEY: ((SSH_KEY))
+          OS_AUTH_URL: ((OS_AUTH_URL))
+          OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+          OS_PROJECT_ID: ((OS_PROJECT_ID))
+          OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+          OS_INTERFACE: ((OS_INTERFACE))
+          OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+          OS_USERNAME: ((OS_USERNAME))
+          OS_PASSWORD: ((OS_PASSWORD))
+          OS_REGION_NAME: ((OS_REGION_NAME))
+          OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+
+  - name: loadbalancer
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: alpine
+        inputs:
+          - name: master
+        run:
+          path: master/ci/scripts/loadbalancer.sh
+        params:
+          SSH_KEY: ((SSH_KEY))
+          OS_AUTH_URL: ((OS_AUTH_URL))
+          OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+          OS_PROJECT_ID: ((OS_PROJECT_ID))
+          OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+          OS_INTERFACE: ((OS_INTERFACE))
+          OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+          OS_USERNAME: ((OS_USERNAME))
+          OS_PASSWORD: ((OS_PASSWORD))
+          OS_REGION_NAME: ((OS_REGION_NAME))
+          OS_PROJECT_NAME: ((OS_PROJECT_NAME))
