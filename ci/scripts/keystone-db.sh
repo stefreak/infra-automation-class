@@ -1,3 +1,3 @@
 #!/bin/sh
 
-source `basename $0`/global.sh
+source `dirname $0`/global.sh
