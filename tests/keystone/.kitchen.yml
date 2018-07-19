@@ -11,9 +11,9 @@ driver:
 
 provisioner:
   name: ansible_push
-  playbook: "../../plays/loadbalancer.yml"
+  playbook: "../../plays/keystone.yml"
   ansible_config: "../../ansible.cfg"
-  mygroup: loadbalancer
+  mygroup: keystone
   verbose: "vv"
   remote_user: ubuntu
   host_key_checking: false
@@ -24,8 +24,8 @@ provisioner:
 
   # Put some fake groups from staging environment for integration tests:
   groups:
-    keystone:
-      - keystone001.staging.testinfra.cloud.tux.kz
+    keystone-db:
+      - keystone-db001.staging.testinfra.cloud.tux.kz
 
 transport:
   username: ubuntu
