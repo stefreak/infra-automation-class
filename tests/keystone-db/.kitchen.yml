@@ -21,7 +21,8 @@ provisioner:
   fail_non_idempotent: true
   chef_bootstrap_url: nil
   extra_vars: "@vars.yml"
-  
+  raw_arguments: "-i ../../tests.ini"
+
 transport:
   username: ubuntu
 

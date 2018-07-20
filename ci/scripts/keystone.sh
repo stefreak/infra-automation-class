@@ -6,4 +6,4 @@ source `dirname $0`/global.sh
 
 cd master/tests/keystone
 
-kitchen converge
+kitchen test
