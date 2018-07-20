@@ -19,6 +19,6 @@
 - name: Enable keystone reverse proxy
   file:
     src: /etc/nginx/sites-available/keystone.conf
-    dest: /etc/nginx/sites-enablid/keystone.conf
+    dest: /etc/nginx/sites-enabled/keystone.conf
     state: link
   notify: restart nginx
