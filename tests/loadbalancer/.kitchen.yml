@@ -31,9 +31,9 @@ transport:
   username: ubuntu
 
 platforms:
-  - name: xenial
+  - name: bionic
     driver_config:
-      image_ref: testinfra-xenial
+      image_ref: testinfra-bionic
       network_ref: testinfra-staging
       key_name: testinfra-kitchen
       security_groups: ['testinfra-ssh_only']
