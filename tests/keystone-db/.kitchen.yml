@@ -14,7 +14,7 @@ provisioner:
   playbook: "../../plays/keystone-db.yml"
   ansible_config: "../../ansible.cfg"
   mygroup: keystone-db
-  verbose: "vv"
+  verbose: "vvvv"
   remote_user: ubuntu
   host_key_checking: false
   idempotency_test: true
