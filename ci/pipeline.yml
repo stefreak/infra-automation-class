@@ -7,6 +7,15 @@ resources:
       uri: https://github.com/rnurgaliyev/infra-automation-class.git
       branch: master
 
+  - name: version
+    type: semver
+    source:
+      driver: git
+      uri: git@github.com:rnurgaliyev/infra-automation-class.git
+      branch: version
+      file: version
+      private_key: ((SSH_KEY))
+
 jobs:
   - name: keystone
     plan:
@@ -91,3 +100,12 @@ jobs:
           OS_PASSWORD: ((OS_PASSWORD))
           OS_REGION_NAME: ((OS_REGION_NAME))
           OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+
+  - name: Publish release
+    plan:
+    - get: master
+      passed: [keystone, keystone-db, loadbalancer]
+      trigger: true
+    - put: version
+      params:
+        bump: minor
