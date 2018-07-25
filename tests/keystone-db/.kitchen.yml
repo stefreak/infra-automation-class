@@ -27,15 +27,21 @@ transport:
   username: ubuntu
 
 platforms:
-  - name: minimal
+  - name: bionic
     driver_config:
-      image_ref: testinfra-minimal
+      image_ref: testinfra-bionic
       network_ref: testinfra-staging
       key_name: testinfra-kitchen
       security_groups: ['testinfra-ssh_only']
       flavor_ref: m1.micro
       floating_ip_pool: ext-net
       allocate_floating_ip: true
+
+
+verifier:
+  name: shell
+  remote_exec: false
+  command: py.test -vv --sudo --color=yes --connection=ssh --hosts=ubuntu@$KITCHEN_HOSTNAME test/integration/$KITCHEN_SUITE/*
 
 suites:
   - name: basic
