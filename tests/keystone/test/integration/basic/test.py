@@ -1,27 +1,27 @@
-def test_nginx_is_installed(host):
-    nginx = host.package("nginx")
-    assert nginx.is_installed
-    assert nginx.version.startswith("1.14")
+def test_keystone_is_installed(host):
+    keystone = host.package("keystone")
+    assert keystone.is_installed
 
 
-def test_nginx_running_and_enabled(host):
-    nginx = host.service("nginx")
-    assert nginx.is_running
-    assert nginx.is_enabled
+def test_apache2_is_installed(host):
+    apache2 = host.package("apache2")
+    assert apache2.is_installed
 
 
-def test_nginx_public_keystone_is_listening(host):
+def test_apache2_running_and_enabled(host):
+    apache2 = host.service("apache2")
+    assert apache2.is_running
+    assert apache2.is_enabled
+
+
+def test_apache2_public_keystone_is_listening(host):
     socket = host.socket("tcp://0.0.0.0:5000")
     assert socket.is_listening
 
 
-def test_nginx_admin_keystone_is_listening(host):
+def test_apache2_admin_keystone_is_listening(host):
     socket = host.socket("tcp://0.0.0.0:35357")
     assert socket.is_listening
-
-
-def test_nginx_configuration(host):
-    assert host.run("/usr/sbin/nginx -t").rc == 0
 
 
 def test_nginx_keystone_public_endpoint(host):

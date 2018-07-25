@@ -6,4 +6,4 @@ source `dirname $0`/global.sh
 
 cd master/tests/keystone
 
-kitchen test
+kitchen test --destroy=always
