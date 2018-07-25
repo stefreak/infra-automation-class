@@ -1,36 +1,30 @@
-def test_nginx_is_installed(host):
-    nginx = host.package("nginx")
-    assert nginx.is_installed
-    assert nginx.version.startswith("1.14")
+def test_mysql_is_installed(host):
+    mysql = host.package("mysql-server")
+    assert mysql.is_installed
+    assert mysql.version.startswith("5.7.22")
 
 
-def test_nginx_running_and_enabled(host):
-    nginx = host.service("nginx")
-    assert nginx.is_running
-    assert nginx.is_enabled
+def test_mysql_running_and_enabled(host):
+    mysql = host.service("mysql")
+    assert mysql.is_running
+    assert mysql.is_enabled
 
 
-def test_nginx_public_keystone_is_listening(host):
-    socket = host.socket("tcp://0.0.0.0:5000")
+def test_mysql_is_listening(host):
+    socket = host.socket("tcp://0.0.0.0:3306")
     assert socket.is_listening
 
 
-def test_nginx_admin_keystone_is_listening(host):
-    socket = host.socket("tcp://0.0.0.0:35357")
-    assert socket.is_listening
+def test_keystone_database_tables_exist(host):
+    query = host.run("mysql -uroot keystone -e 'show tables;'")
+    assert 'access_token' in query.stdout
+    assert 'endpoint' in query.stdout
+    assert 'user' in query.stdout
+    assert 'project' in query.stdout
 
 
-def test_nginx_configuration(host):
-    assert host.run("/usr/sbin/nginx -t").rc == 0
+def test_keystone_database_allowed_remote_users(host):
+    query = host.run("mysql -uroot mysql -sN -e 'select User,Host from user where Host!=\"localhost\" and User!=\"keystone\";'")
+    assert len(query.stdout) == 0
+    assert query.rc == 0
 
-
-def test_nginx_keystone_public_endpoint(host):
-    request = host.run("curl -v http://127.0.0.1:5000/v3")
-    assert 'HTTP/1.1 200 OK' in request.stderr
-    assert 'x-openstack-request-id' in request.stderr
-
-
-def test_nginx_keystone_admin_endpoint(host):
-    request = host.run("curl -v http://127.0.0.1:35357/v3")
-    assert 'HTTP/1.1 200 OK' in request.stderr
-    assert 'x-openstack-request-id' in request.stderr
