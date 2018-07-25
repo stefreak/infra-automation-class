@@ -45,7 +45,7 @@ platforms:
 verifier:
   name: shell
   remote_exec: false
-  command: py.test -vv --hosts=kitchen@$KITCHEN_HOST test/integration/$KITCHEN_SUITE
+  command: py.test -vv --connection=ssh --hosts=ubuntu@$KITCHEN_HOSTNAME test/integration/$KITCHEN_SUITE/*
 
 suites:
   - name: basic
