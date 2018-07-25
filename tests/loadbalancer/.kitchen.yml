@@ -42,5 +42,10 @@ platforms:
       floating_ip_pool: ext-net
       allocate_floating_ip: true
 
+verifier:
+  name: shell
+  remote_exec: false
+  command: testinfra -vv --hosts=kitchen@$KITCHEN_HOST test/integration/$KITCHEN_SUITE
+
 suites:
   - name: basic
