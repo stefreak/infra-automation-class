@@ -1,7 +1,7 @@
 def test_mysql_is_installed(host):
     mysql = host.package("mysql-server")
     assert mysql.is_installed
-    assert mysql.version.startswith("5.7.22")
+    assert mysql.version.startswith("5.7.23")
 
 
 def test_mysql_running_and_enabled(host):
