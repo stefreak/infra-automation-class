@@ -1,6 +1,6 @@
 {
   "data_dir": "/var/consul",
-{% if consul_run_server is defined and consul_server %}
+{% if consul_run_server is defined and consul_run_server %}
   "bootstrap_expect": 1,
   "server": true,
 {% else %}
