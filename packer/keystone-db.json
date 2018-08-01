@@ -9,6 +9,7 @@
             "floating_ip_pool": "ext-net",
             "security_groups": "testinfra-ssh_only",
             "ssh_username": "ubuntu",
+            "ssh_keypair_name": "testinfra-kitchen",
             "reuse_ips": true,
             "networks": [
                 "5d58c0ce-0a53-4452-96d7-1713560b4cde"
