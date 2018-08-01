@@ -13,4 +13,5 @@
 - hosts: loadbalancer
   become: True
   roles:
+    - consul
     - loadbalancer

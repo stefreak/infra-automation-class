@@ -11,8 +11,8 @@
     state: absent
 
 - name: Template keystone reverse proxy configuration
-  template:
-    src: keystone.conf.j2
+  copy:
+    src: keystone.conf
     dest: /etc/nginx/sites-available/keystone.conf
   notify: restart nginx
 

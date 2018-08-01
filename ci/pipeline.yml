@@ -16,6 +16,13 @@ resources:
       file: version
       private_key: ((SSH_KEY))
 
+  - name: release
+    type: github-release
+    source:
+      owner: rnurgaliyev
+      repository: infra-automation-class
+      access_token: ((GITHUB_TOKEN))
+
 jobs:
   - name: keystone
     plan:
@@ -109,3 +116,7 @@ jobs:
     - put: version
       params:
         bump: minor
+    - put: release
+      params:
+        name: version/version
+        tag: version/version

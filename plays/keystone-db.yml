@@ -13,4 +13,5 @@
 - hosts: keystone-db
   become: True
   roles:
+    - consul
     - keystone-db

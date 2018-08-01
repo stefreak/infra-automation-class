@@ -16,3 +16,4 @@ SSH_KEY: |
   ... some private rsa key goes here...
   -----END RSA PRIVATE KEY-----
 
+GITHUB_TOKEN: <GitHub token with Repo scope to produce releases>

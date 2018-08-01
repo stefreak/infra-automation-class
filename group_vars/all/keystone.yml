@@ -3,12 +3,13 @@
 keystone_db_name: keystone
 keystone_db_user: keystone
 keystone_db_password: very_serious_password
-keystone_db_host: "{{ groups['keystone-db'][0] }}"
+keystone_db_host: "127.0.0.1"
+keystone_db_port: 1339
 
 keystone_configuration:
   - section: database
     option: connection
-    value: "mysql+pymysql://{{ keystone_db_user }}:{{ keystone_db_password }}@{{ keystone_db_host }}/{{ keystone_db_name }}"
+    value: "mysql+pymysql://{{ keystone_db_user }}:{{ keystone_db_password }}@{{ keystone_db_host }}:{{ keystone_db_port }}/{{ keystone_db_name }}"
   - section: token
     option: provider
     value: uuid

@@ -11,4 +11,6 @@ else
     chmod 600 /root/.ssh/id_rsa
 fi
 
+# Store Ansible control path in memory file system, since docker overlayfs
+# can break the socket
 export ANSIBLE_SSH_CONTROL_PATH="/dev/shm/ansible-ssh-%%h-%%p-%%r"

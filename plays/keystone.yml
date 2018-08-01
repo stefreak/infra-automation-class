@@ -13,4 +13,5 @@
 - hosts: keystone
   become: True
   roles:
+    - consul
     - keystone
