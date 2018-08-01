@@ -23,11 +23,6 @@ provisioner:
   extra_vars: "@vars.yml"
   raw_arguments: "-i ../../tests.ini"
 
-  # Put some fake groups from staging environment for integration tests:
-  groups:
-    keystone-db:
-      - keystone-db001.staging.testinfra.cloud.tux.kz
-
 transport:
   username: ubuntu
 
