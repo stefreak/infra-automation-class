@@ -1,11 +1,11 @@
 [Unit]
 Description=Consul Agent
+StartLimitIntervalSec=0
 
 [Service]
 User=root
 Restart=on-failure
 RestartSec=5
-StartLimitIntervalSec=0
 ExecStart=/usr/sbin/consul agent -config-dir=/etc/consul.d
 
 [Install]
