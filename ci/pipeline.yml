@@ -125,6 +125,8 @@ jobs:
     plan:
       - get: release
         trigger: true
+        params:
+          include_source_tarball: true
       - get: master
       - task: Build keystone image
         config:

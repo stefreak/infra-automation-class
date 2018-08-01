@@ -4,8 +4,9 @@ set -e
 
 source `dirname $0`/../global.sh
 
-ls -laR
+# Extract artifact
+cd release
+tar xzf source.tar.gz
 
-# cd master/packer
-
-# packer build ./loadbalancer.json
+cd packer
+packer build ./loadbalancer.json
