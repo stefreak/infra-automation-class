@@ -10,4 +10,4 @@ tar xzf source.tar.gz --strip 1
 
 # Run packer
 cd packer
-packer build ./$CI_COMPONENT.json
+packer build -debug ./$CI_COMPONENT.json
