@@ -6,9 +6,8 @@ source `dirname $0`/../global.sh
 
 # Extract artifact
 cd release
-tar xzf source.tar.gz
+tar xzf source.tar.gz --strip 1
 
-ls -laR
-
-cd source/packer
+# Run packer
+cd packer
 packer build ./loadbalancer.json
