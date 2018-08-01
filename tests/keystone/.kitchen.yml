@@ -31,7 +31,7 @@ platforms:
     driver_config:
       image_ref: testinfra-bionic
       network_ref: testinfra-staging
-      key_name: testinfra-kitchen
+      key_name: testinfra-cikey
       security_groups: ['testinfra-ssh_only']
       flavor_ref: m1.micro
       floating_ip_pool: ext-net

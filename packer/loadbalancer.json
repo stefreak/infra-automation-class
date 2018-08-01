@@ -8,7 +8,7 @@
             "use_floating_ip": true,
             "floating_ip_pool": "ext-net",
             "security_groups": "testinfra-ssh_only",
-            "ssh_keypair_name": "testinfra-kitchen",
+            "ssh_keypair_name": "testinfra-cikey",
             "ssh_username": "ubuntu",
             "reuse_ips": true,
             "networks": [
