@@ -10,4 +10,4 @@ source `dirname $0`/global.sh
 cd master
 # Run packer
 cd packer
-packer build -debug ./$CI_COMPONENT.json
+packer build ./$CI_COMPONENT.json
