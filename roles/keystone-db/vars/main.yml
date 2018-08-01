@@ -1,3 +1,4 @@
 ---
 
-keystone_db_host: localhost
+keystone_db_host: 127.0.0.1
+keystone_db_port: 3306

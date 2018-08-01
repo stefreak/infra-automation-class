@@ -2,7 +2,7 @@
     "builders": [
         {
             "type": "openstack",
-            "image_name": "loadbalancer",
+            "image_name": "keystone",
             "source_image_name": "testinfra-bionic",
             "flavor": "m1.micro",
             "use_floating_ip": true,
@@ -18,9 +18,9 @@
     "provisioners": [
         {
           "type": "ansible",
-          "playbook_file": "../plays/loadbalancer.yml",
+          "playbook_file": "../plays/keystone.yml",
           "groups": [
-              "loadbalancer"
+              "keystone"
           ],
           "ansible_env_vars": [ "ANSIBLE_CONFIG=../ansible.cfg" ],
           "extra_arguments": [ "--extra-vars", "@vars.yml" ]

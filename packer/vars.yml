@@ -1,0 +1,5 @@
+---
+
+consul_server: consul.live.testinfra.cloud.tux.kz
+environment_domain: testinfra
+environment_name: live
