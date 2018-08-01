@@ -2,7 +2,7 @@
 
 set -e
 
-source `dirname $0`/global.sh
+. `dirname $0`/global.sh
 
 cd master/tests/$CI_COMPONENT
 
