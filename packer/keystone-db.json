@@ -10,7 +10,7 @@
             "security_groups": "testinfra-ssh_only",
             "ssh_username": "ubuntu",
             "ssh_keypair_name": "testinfra-cikey",
-            "ssh_private_key_file": "~/.ssh/id_rsa",
+            "ssh_private_key_file": "/root/.ssh/id_rsa",
             "reuse_ips": true,
             "networks": [
                 "5d58c0ce-0a53-4452-96d7-1713560b4cde"
