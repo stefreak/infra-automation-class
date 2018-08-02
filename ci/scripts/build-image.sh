@@ -10,4 +10,7 @@ set -e
 cd master
 # Run packer
 cd packer
+
+export PACKER_LOG=1
+
 packer build ./$CI_COMPONENT.json
