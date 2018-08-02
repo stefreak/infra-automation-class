@@ -15,7 +15,7 @@
                 "5d58c0ce-0a53-4452-96d7-1713560b4cde"
             ],
             "ssh_keypair_name": "testinfra-cikey",
-            "key": "/root/.ssh/id_rsa"
+            "ssh_private_key_file": "/root/.ssh/id_rsa"
         }
     ],
     "provisioners": [
