@@ -3,6 +3,7 @@
 OS_AUTH_URL: https://keystone.cloud.syseleven.net:5000/v3
 OS_IDENTITY_API_VERSION: 3
 OS_PROJECT_ID: 26cfbd9d4ee64d8faecd287bb39d3870
+OS_DOMAIN_NAME: Default
 OS_USER_DOMAIN_NAME: Default
 OS_INTERFACE: public
 OS_ENDPOINT_TYPE: public
