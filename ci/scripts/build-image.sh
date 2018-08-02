@@ -5,14 +5,10 @@ set -e
 . `dirname $0`/global.sh
 
 # Extract artifact
-# cd release
-# tar xzf source.tar.gz --strip 1
-cd master
+cd release
+tar xzf source.tar.gz --strip 1
+
 # Run packer
 cd packer
-
-export PACKER_LOG=1
-
-env
 
 packer build ./$CI_COMPONENT.json
