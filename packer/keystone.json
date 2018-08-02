@@ -18,6 +18,7 @@
     "provisioners": [
         {
           "type": "ansible",
+          "user": "ubuntu",
           "playbook_file": "../plays/keystone.yml",
           "groups": [
               "keystone"
