@@ -13,4 +13,6 @@ cd packer
 
 #export PACKER_LOG=1
 
+env
+
 packer build ./$CI_COMPONENT.json

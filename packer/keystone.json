@@ -22,7 +22,7 @@
           "groups": [
               "keystone"
           ],
-          "ansible_env_vars": [ "ANSIBLE_CONFIG=../ansible.cfg", "ANSIBLE_SSH_ARGS=-t" ],
+          "ansible_env_vars": [ "ANSIBLE_CONFIG=../ansible.cfg", "ANSIBLE_FORCE_COLOR=true" ],
           "extra_arguments": [ "--extra-vars", "@vars.yml" ]
         }
     ]
