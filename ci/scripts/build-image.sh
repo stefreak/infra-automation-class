@@ -11,7 +11,7 @@ cd master
 # Run packer
 cd packer
 
-#export PACKER_LOG=1
+export PACKER_LOG=1
 
 env
 
