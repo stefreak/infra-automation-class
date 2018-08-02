@@ -12,7 +12,7 @@
             "ssh_pty": true,
             "reuse_ips": true,
             "networks": [
-                "5d58c0ce-0a53-4452-96d7-1713560b4cde"
+                "4d4e1745-7256-4735-ae0e-ccbb5c706787"
             ],
             "ssh_keypair_name": "testinfra-cikey",
             "ssh_private_key_file": "/root/.ssh/id_rsa"
