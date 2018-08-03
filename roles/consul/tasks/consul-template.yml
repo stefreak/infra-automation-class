@@ -56,3 +56,9 @@
   notify: 
     - reload systemd
     - restart consul-template
+
+- name: Enable and start consul template
+  service:
+    name: consul-template.service
+    enabled: True
+  notify: restart consul-template
