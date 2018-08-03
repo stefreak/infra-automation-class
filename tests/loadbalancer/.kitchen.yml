@@ -3,7 +3,7 @@
 driver:
   name: openstack
   openstack_username: <%= ENV['OS_USERNAME'] %>
-  openstack_api_key: <%= ENV['OS_PASSWORD'] %>
+  openstack_api_key: '<%= ENV['OS_PASSWORD'] %>'
   openstack_auth_url: "https://keystone.cloud.syseleven.net:5000/v2.0/tokens"
   openstack_domain_id: <%= ENV['OS_USER_DOMAIN_NAME'] %>
   openstack_tenant: <%= ENV['OS_PROJECT_NAME'] %>
