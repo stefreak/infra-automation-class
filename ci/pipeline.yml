@@ -4,14 +4,14 @@ resources:
   - name: master
     type: git
     source:
-      uri: https://github.com/rnurgaliyev/infra-automation-class.git
+      uri: https://github.com/stefreak/infra-automation-class.git
       branch: master
 
   - name: version
     type: semver
     source:
       driver: git
-      uri: git@github.com:rnurgaliyev/infra-automation-class.git
+      uri: git@github.com:stefreak/infra-automation-class.git
       branch: version
       file: version
       private_key: ((SSH_KEY))
@@ -19,7 +19,7 @@ resources:
   - name: release
     type: github-release
     source:
-      owner: rnurgaliyev
+      owner: stefreak
       repository: infra-automation-class
       access_token: ((GITHUB_TOKEN))
 
