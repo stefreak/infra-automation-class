@@ -33,7 +33,7 @@ platforms:
       network_ref: testinfra-staging
       key_name: testinfra-cikey
       security_groups: ['testinfra-ssh_only']
-      flavor_ref: m1.micro
+      flavor_ref: l1.tiny
       floating_ip_pool: ext-net
       allocate_floating_ip: true
 
