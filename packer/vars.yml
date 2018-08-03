@@ -1,5 +1,5 @@
 ---
 
-consul_server: consul.live.testinfra.cloud.tux.kz
-environment_domain: testinfra
+consul_server: consul.live.steffen.cloud.tux.kz
+environment_domain: steffen
 environment_name: live
