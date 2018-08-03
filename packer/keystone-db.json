@@ -11,7 +11,7 @@
             "ssh_username": "ubuntu",
             "reuse_ips": true,
             "networks": [
-                "02ee36a3-2388-4b3d-8f7b-2dc77d689999"
+                "f13be5d5-c6ae-47ae-86ea-e88f1a2df9ca"
             ]
         }
     ],
