@@ -1,0 +1,47 @@
+---
+
+driver:
+  name: openstack
+  openstack_username: <%= ENV['OS_USERNAME'] %>
+  openstack_api_key: <%= ENV['OS_PASSWORD'] %>
+  openstack_auth_url: "https://keystone.cloud.syseleven.net:5000/v2.0/tokens"
+  openstack_domain_id: <%= ENV['OS_USER_DOMAIN_NAME'] %>
+  openstack_tenant: <%= ENV['OS_PROJECT_NAME'] %>
+  openstack_region: <%= ENV['OS_REGION_NAME'] %>
+
+provisioner:
+  name: ansible_push
+  playbook: "../../plays/keystone-db.yml"
+  ansible_config: "../../ansible.cfg"
+  mygroup: keystone-db
+  verbose: "vvvv"
+  remote_user: ubuntu
+  host_key_checking: false
+  idempotency_test: true
+  fail_non_idempotent: true
+  chef_bootstrap_url: nil
+  extra_vars: "@vars.yml"
+  raw_arguments: "-i ../../tests.ini"
+
+transport:
+  username: ubuntu
+
+platforms:
+  - name: bionic
+    driver_config:
+      image_ref: testinfra-bionic
+      network_ref: testinfra-staging
+      key_name: testinfra-cikey
+      security_groups: ['testinfra-ssh_only']
+      flavor_ref: m1.micro
+      floating_ip_pool: ext-net
+      allocate_floating_ip: true
+
+
+verifier:
+  name: shell
+  remote_exec: false
+  command: py.test -vv --sudo --color=yes --connection=ssh --hosts=ubuntu@$KITCHEN_HOSTNAME test/integration/$KITCHEN_SUITE/*
+
+suites:
+  - name: basic

@@ -1,0 +1,155 @@
+---
+
+resources:
+  - name: master
+    type: git
+    source:
+      uri: https://github.com/rnurgaliyev/infra-automation-class.git
+      branch: master
+
+  - name: version
+    type: semver
+    source:
+      driver: git
+      uri: git@github.com:rnurgaliyev/infra-automation-class.git
+      branch: version
+      file: version
+      private_key: ((SSH_KEY))
+
+  - name: release
+    type: github-release
+    source:
+      owner: rnurgaliyev
+      repository: infra-automation-class
+      access_token: ((GITHUB_TOKEN))
+
+jobs:
+  - name: keystone
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      file: master/ci/tasks/kitchen-test.yml
+      params:
+        CI_COMPONENT: keystone
+        OS_AUTH_URL: ((OS_AUTH_URL))
+        OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+        OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+        OS_INTERFACE: ((OS_INTERFACE))
+        OS_PASSWORD: ((OS_PASSWORD))
+        OS_PROJECT_ID: ((OS_PROJECT_ID))
+        OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+        OS_REGION_NAME: ((OS_REGION_NAME))
+        OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+        OS_USERNAME: ((OS_USERNAME))
+        SSH_KEY: ((SSH_KEY))
+
+  - name: keystone-db
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      file: master/ci/tasks/kitchen-test.yml
+      params:
+        CI_COMPONENT: keystone-db
+        OS_AUTH_URL: ((OS_AUTH_URL))
+        OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+        OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+        OS_INTERFACE: ((OS_INTERFACE))
+        OS_PASSWORD: ((OS_PASSWORD))
+        OS_PROJECT_ID: ((OS_PROJECT_ID))
+        OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+        OS_REGION_NAME: ((OS_REGION_NAME))
+        OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+        OS_USERNAME: ((OS_USERNAME))
+        SSH_KEY: ((SSH_KEY))
+
+  - name: loadbalancer
+    plan:
+    - get: master
+      trigger: true
+    - task: automation test
+      file: master/ci/tasks/kitchen-test.yml
+      params:
+        CI_COMPONENT: loadbalancer
+        OS_AUTH_URL: ((OS_AUTH_URL))
+        OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+        OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+        OS_INTERFACE: ((OS_INTERFACE))
+        OS_PASSWORD: ((OS_PASSWORD))
+        OS_PROJECT_ID: ((OS_PROJECT_ID))
+        OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+        OS_REGION_NAME: ((OS_REGION_NAME))
+        OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+        OS_USERNAME: ((OS_USERNAME))
+        SSH_KEY: ((SSH_KEY))
+
+  - name: Publish release
+    plan:
+    - get: master
+      passed: [keystone, keystone-db, loadbalancer]
+      trigger: true
+    - put: version
+      params:
+        bump: minor
+    - put: release
+      params:
+        name: version/version
+        tag: version/version
+
+  - name: Build images
+    plan:
+      - get: release
+        trigger: true
+        params:
+          include_source_tarball: true
+      - get: master
+      - aggregate:
+        - task: Build keystone image
+          file: master/ci/tasks/build-image.yml
+          params:
+            CI_COMPONENT: keystone
+            OS_AUTH_URL: ((OS_AUTH_URL))
+            OS_DOMAIN_NAME: ((OS_DOMAIN_NAME))
+            OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+            OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+            OS_INTERFACE: ((OS_INTERFACE))
+            OS_PASSWORD: ((OS_PASSWORD))
+            OS_PROJECT_ID: ((OS_PROJECT_ID))
+            OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+            OS_REGION_NAME: ((OS_REGION_NAME))
+            OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+            OS_USERNAME: ((OS_USERNAME))
+            SSH_KEY: ((SSH_KEY))
+        - task: Build keystone-db image
+          file: master/ci/tasks/build-image.yml
+          params:
+            CI_COMPONENT: keystone-db
+            OS_AUTH_URL: ((OS_AUTH_URL))
+            OS_DOMAIN_NAME: ((OS_DOMAIN_NAME))
+            OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+            OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+            OS_INTERFACE: ((OS_INTERFACE))
+            OS_PASSWORD: ((OS_PASSWORD))
+            OS_PROJECT_ID: ((OS_PROJECT_ID))
+            OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+            OS_REGION_NAME: ((OS_REGION_NAME))
+            OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+            OS_USERNAME: ((OS_USERNAME))
+            SSH_KEY: ((SSH_KEY))
+        - task: Build loadbalancer image
+          file: master/ci/tasks/build-image.yml
+          params:
+            CI_COMPONENT: loadbalancer
+            OS_AUTH_URL: ((OS_AUTH_URL))
+            OS_DOMAIN_NAME: ((OS_DOMAIN_NAME))
+            OS_ENDPOINT_TYPE: ((OS_ENDPOINT_TYPE))
+            OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
+            OS_INTERFACE: ((OS_INTERFACE))
+            OS_PASSWORD: ((OS_PASSWORD))
+            OS_PROJECT_ID: ((OS_PROJECT_ID))
+            OS_PROJECT_NAME: ((OS_PROJECT_NAME))
+            OS_REGION_NAME: ((OS_REGION_NAME))
+            OS_USER_DOMAIN_NAME: ((OS_USER_DOMAIN_NAME))
+            OS_USERNAME: ((OS_USERNAME))
+            SSH_KEY: ((SSH_KEY))

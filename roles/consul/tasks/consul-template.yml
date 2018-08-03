@@ -1,0 +1,64 @@
+---
+
+- name: Check if consul-template is installed
+  stat:
+    path: /usr/sbin/consul-template
+  register: consul_template_stat
+
+- name: Install HAproxy
+  apt:
+    name: haproxy
+    state: present
+
+- name: Download consul-template to temporary path
+  get_url:
+    url: https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.zip
+    checksum: "sha1:e1b044b2b5a952f6fc108dfc027f5c2536f277c7"
+    dest: /tmp/consul-template.zip
+    force: True
+  when: not consul_template_stat.stat.exists
+
+- name: Unpack consul-template binary
+  unarchive:
+    remote_src: True
+    src: /tmp/consul-template.zip
+    dest: /usr/sbin
+    mode: 0755
+  when: not consul_template_stat.stat.exists
+  notify: restart consul
+
+- name: Create consul-template configuration directory
+  file:
+    dest: /etc/consul-template.d
+    state: directory
+
+- name: Create consul-templates directory
+  file:
+    dest: /etc/consul-templates
+    state: directory
+
+- name: Copy consul-template configuration
+  copy:
+    src: config.hcl
+    dest: /etc/consul-template.d/config.hcl
+  notify: restart consul-template
+
+- name: Copy HAproxy template
+  copy:
+    src: haproxy.cfg.ctmpl
+    dest: /etc/consul-templates/haproxy.cfg.ctmpl
+  notify: restart consul-template
+
+- name: Install consul-template systemd service
+  copy:
+    src: consul-template.service
+    dest: "/etc/systemd/system/consul-template.service"
+  notify: 
+    - reload systemd
+    - restart consul-template
+
+- name: Enable and start consul template
+  service:
+    name: consul-template.service
+    enabled: True
+  notify: restart consul-template

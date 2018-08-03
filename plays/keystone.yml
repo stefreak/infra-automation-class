@@ -1,0 +1,17 @@
+---
+
+# First play just checks if python is installed
+- hosts: keystone
+  become: False
+  gather_facts: False
+  tasks:
+    - name: Check if python2 is installed
+      raw: test -x /usr/bin/python || (sudo apt-get update && sudo apt-get -y -q install python-minimal)
+      changed_when: False
+
+# Do actual server provision
+- hosts: keystone
+  become: True
+  roles:
+    - consul
+    - keystone

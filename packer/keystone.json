@@ -1,0 +1,31 @@
+{
+    "builders": [
+        {
+            "type": "openstack",
+            "image_name": "keystone",
+            "source_image_name": "testinfra-bionic",
+            "flavor": "m1.micro",
+            "use_floating_ip": true,
+            "floating_ip_pool": "ext-net",
+            "security_groups": "testinfra-ssh_only",
+            "ssh_username": "ubuntu",
+            "reuse_ips": true,
+            "networks": [
+                "02ee36a3-2388-4b3d-8f7b-2dc77d689999"
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+          "type": "ansible",
+          "user": "ubuntu",
+          "playbook_file": "../plays/keystone.yml",
+          "inventory_directory": "../",
+          "groups": [
+              "keystone"
+          ],
+          "ansible_env_vars": [ "ANSIBLE_CONFIG=../ansible.cfg", "ANSIBLE_FORCE_COLOR=true" ],
+          "extra_arguments": [ "--extra-vars", "@vars.yml" ]
+        }
+    ]
+}

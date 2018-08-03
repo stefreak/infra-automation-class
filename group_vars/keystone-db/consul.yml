@@ -1,0 +1,4 @@
+---
+
+consul_services:
+  - name: keystone-db

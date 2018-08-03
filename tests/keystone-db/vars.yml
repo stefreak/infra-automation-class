@@ -1,0 +1,8 @@
+---
+
+# Do integration tests with staging cluster
+keystone_url: http://keystone.staging.testinfra.cloud.tux.kz
+consul_server: consul.staging.testinfra.cloud.tux.kz
+
+# Don't announce any services
+consul_services: []
